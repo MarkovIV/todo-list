@@ -22,6 +22,10 @@
 	transition: 0.4s;
 }
 
+.timeIsOver {
+	background-color: var(--color-light-red);
+}
+
 .title {
 	display: block;
 	padding: 5px;

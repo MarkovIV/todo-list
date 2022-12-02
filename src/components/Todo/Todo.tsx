@@ -14,6 +14,7 @@ import { todosRef, storage, uploadFile } from '../../firebase/firebase'
 import { ref, deleteObject, StorageReference, listAll } from "firebase/storage"
 import { IFileData } from '../../interfaces/todo.interface'
 import { sortFileNames } from '../../helpers/helpers'
+import dayjs from 'dayjs'
 
 export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 	const {activeNum, activeNumSet, completedNum, completedNumSet} = useContext(TodosContext)
@@ -27,6 +28,7 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 	const [inputError, setInputError] = useState<boolean>(false)
 	const [highlightFilesIcon, setHighlightFilesIcon] = useState<string>('')
 	const [highlightExpandIcon, setHighlightExpandIcon] = useState<string>('')
+	const [timeIsOver, setTimeIsOver] = useState<string>('')
 	const [editable, setEditable] = useState<boolean>(false)
 	const [isCompletedStyle, setIsCompletedStyle] = useState<string>('')
 	const [modal, setModal] = useState<boolean>(false)
@@ -49,7 +51,13 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 		} else {
 			setHighlightFilesIcon('')
 		}
-	}, [completed, description, fileData?.length])
+
+		if (dayjs(date).isBefore(dayjs().subtract(1, 'day'))) {
+			setTimeIsOver(styles.timeIsOver)
+		} else {
+			setTimeIsOver('')
+		}
+	}, [completed, description, fileData?.length, timeIsOver])
 
 	const submitHandler = async (event: React.FormEvent) => {
 		event.preventDefault()
@@ -223,7 +231,7 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 	const fileList = (fileDataList: IFileData[]): JSX.Element => {
 		return (
 			<>
-				<div className={styles.fileList}>
+				<div className={cn(styles.fileList, timeIsOver)}>
 					{fileDataList.map((data, index) => 
 						<div key={index}>
 							<a key={index} href={data.link} target="_blank" rel='noreferrer'>{data.name}</a>
@@ -236,11 +244,11 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 
 	return (
 		<>
-			<div {...props} className={cn(className, styles.todo, isCompletedStyle)}>
+			<div {...props} className={cn(className, styles.todo, isCompletedStyle, timeIsOver)}>
 				{editable && <Checkbox className={styles.checkbox} completed={completed}/>}
 				{!editable && <Checkbox className={styles.checkbox} completed={completed} setCompl={setCompl}/>}
-				<button className={styles.expand} onClick={expandHandler}><ExpandIcon className={highlightExpandIcon}/></button>				
-				<label className={styles.clip}>
+				<button className={cn(styles.expand, timeIsOver)} onClick={expandHandler}><ExpandIcon className={highlightExpandIcon}/></button>				
+				<label className={cn(styles.clip, timeIsOver)}>
 					{editable && <input type="file" multiple onChange={changeFiles}/>}
 					<ClipIcon className={highlightFilesIcon}/>
 				</label>	
@@ -248,9 +256,9 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 				{!editable && <input className={styles.title} type="text" placeholder="Enter todo title..." value={title} readOnly/>}
 				{editable && <input className={styles.date} type="date" value={date} onChange={changeDate}/>}
 				{!editable && <input className={styles.date} type="date" value={date} readOnly/>}
-				{editable && <button className={styles.submit} onClick={submitHandler}><SaveIcon/></button>}
-				{!editable && <button className={styles.submit} onClick={editHandler}><EditIcon/></button>}
-				<button className={styles.delete} onClick={deleteHandler}><DeleteIcon/></button>
+				{editable && <button className={cn(styles.submit, timeIsOver)} onClick={submitHandler}><SaveIcon/></button>}
+				{!editable && <button className={cn(styles.submit, timeIsOver)} onClick={editHandler}><EditIcon/></button>}
+				<button className={cn(styles.delete, timeIsOver)} onClick={deleteHandler}><DeleteIcon/></button>
 				<div></div>
 				<div></div>
 				<div className={styles.inputError}>{inputError && <span>Please enter todo title</span>}</div>
