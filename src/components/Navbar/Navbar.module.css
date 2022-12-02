@@ -1,0 +1,117 @@
+.navbar {
+	max-width: var(--max-width);
+	margin: auto;
+	padding-top: 10px;
+	position: fixed;
+	height: 40px;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+
+	display: grid;
+	grid-template-columns: 40px 40px 40px auto 130px 130px 130px auto 40px 40px 40px;
+	grid-template-areas:
+		"start finish . . all active completed . . . github";
+
+	background-color: var(--color-blue);
+	color: var(--color-white);
+
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	box-shadow: 4px 4px 14px rgba(0, 0, 0, .25);
+
+	text-align: center;
+
+	transition: 0.4s;
+}
+
+.finish svg,
+.github svg,
+.start svg {
+	fill: var(--color-white);
+	width: 20px;
+}
+
+.completed button,
+.all button,
+.active button,
+.start button,
+.github button,
+.finish button {
+	background-color: inherit;
+	color: inherit;
+	border: none;
+	cursor: pointer;	
+}
+
+.completed button:hover,
+.all button:hover,
+.active button:hover,
+.start button:hover,
+.github button:hover,
+.finish button:hover {
+	color: var(--color-black);	
+}
+
+.finish svg:hover,
+.github svg:hover,
+.start svg:hover {
+	fill: var(--color-black);
+}
+
+.onCompleted .completed {
+	border-left: 1px solid var(--color-black);
+	border-bottom: 3px solid var(--color-black);
+	border-right: 1px solid var(--color-black);
+	color: var(--color-black);
+
+}
+
+.onCompleted .completed button {
+ 	font-weight: bold;
+}
+
+.onAll .all {
+	border-left: 1px solid var(--color-black);
+	border-bottom: 3px solid var(--color-black);
+	border-right: 1px solid var(--color-black);
+	color: var(--color-black);
+}
+
+.onAll .all button {
+	font-weight: bold;
+}
+
+.onActive .active {
+	border-left: 1px solid var(--color-black);
+	border-bottom: 3px solid var(--color-black);
+	border-right: 1px solid var(--color-black);
+	color: var(--color-black);
+}
+
+.onActive .active button {
+ 	font-weight: bold;
+}
+
+@media (max-width: 650px) {
+	.navbar {
+		grid-template-columns: 40px 40px 40px auto 80px 80px 80px auto 40px 40px 40px;
+	}
+}
+
+@media (max-width: 500px) {
+	* {
+		font-size: 11px;
+	}
+
+	.finish svg:hover,
+	.github svg:hover,
+	.start svg:hover {
+		fill: var(--color-white);
+	}
+
+	.navbar {
+		grid-template-columns: 30px 30px 30px auto 40px 40px 60px auto 30px 30px 30px;
+	}
+}
