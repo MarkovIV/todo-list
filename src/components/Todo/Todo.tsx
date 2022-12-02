@@ -52,7 +52,7 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 			setHighlightFilesIcon('')
 		}
 
-		if (dayjs(date).isBefore(dayjs().subtract(1, 'day'))) {
+		if (dayjs(date).isBefore(dayjs().subtract(1, 'day')) && !completed) {
 			setTimeIsOver(styles.timeIsOver)
 		} else {
 			setTimeIsOver('')

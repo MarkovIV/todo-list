@@ -8,6 +8,7 @@ import cn from 'classnames'
 import { v4 as uuidv4 } from 'uuid'
 import { todosRef } from '../../firebase/firebase'
 import { Todo } from '../Todo/Todo'
+import { sortTodos } from '../../helpers/helpers'
 
 export const Todos = ({ className, ...props }: TodosProps): JSX.Element => {
 	const {todosListFilter, activeNumSet, completedNumSet} = useContext(TodosContext)
@@ -54,7 +55,7 @@ export const Todos = ({ className, ...props }: TodosProps): JSX.Element => {
 				break
 		}
 
-		return filteredTodosList
+		return filteredTodosList.sort((todo1, todo2) => sortTodos(todo1, todo2))
 	}
 
 	return (
