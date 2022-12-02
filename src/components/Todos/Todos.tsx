@@ -60,7 +60,7 @@ export const Todos = ({ className, ...props }: TodosProps): JSX.Element => {
 
 	return (
 		<>
-			<div {...props} className={cn(className, styles.todos)}>
+			<div {...props} className={cn(className, styles.todos)} id="todos">
 				<div className={styles.todosList}>{	
 					filteredTodoList(todos).map(todo => <Todo todo={todo} key={uuidv4()}/>)}	
 				</div>
