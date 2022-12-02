@@ -4,6 +4,9 @@ import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from "firebase/
 import { sortFileNames } from '../helpers/helpers'
 import { IFileData } from '../interfaces/todo.interface'
 
+/**
+ * Параметры проекта в Firebase
+ */
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_APIKEY,
 	authDomain: process.env.REACT_APP_AUTHDOMAIN,
@@ -14,12 +17,25 @@ const firebaseConfig = {
 	appId: process.env.REACT_APP_APPID
 }
 
+/**
+ * Инициализируем приложение в Firebase и базу данных Realtime Database Firebase
+ */
 const app = firebase.initializeApp(firebaseConfig)
 const databaseRef = firebase.database().ref()
 
+/**
+ * Определяем ссылки на хранилище Storage Firebase и
+ * базу данных Realtime Database Firebase
+ */
 export const storage = getStorage(app)
 export const todosRef = databaseRef.child('todos')
 
+/**
+ * Функция возвращает массив объектов, содержащих имена и ссылки для файлов, прикрепленных
+ * к заданной задаче
+ * @param {string} todoId - Идентификатор задачи
+ * @returns {IFileData[]} - Массив объектов с именами и ссылками для файлов
+ */
 export const updateTodoFiles = async (todoId: string) => {
 	const filesListRef = ref(storage, todoId)
 	
@@ -38,6 +54,15 @@ export const updateTodoFiles = async (todoId: string) => {
 	return filesData
 }
 
+/**
+ * Функция сохраняет в хранилище Storage Firebase файлы из указанного массива,
+ * прикрепляя файлы к папке, созданной для заданной задачи. Функция возвращает
+ * массив объектов, содержащих имена и ссылки для файлов, прикрепленных
+ * к задаче
+ * @param {string} todoIdent - Идентификатор задачи
+ * @param {File[]} filesArray - Массив файлов
+ * @returns {IFileData[]} - Массив объектов с именами и ссылками для файлов
+ */
 export const uploadFile = async (todoIdent: string, filesArray: File[]) => {		
 	let filesData: IFileData[] = []
 
