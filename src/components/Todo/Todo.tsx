@@ -259,21 +259,9 @@ export const Todo = ({ todo, className, ...props }: TodoProps): JSX.Element => {
 				{editable && <button className={cn(styles.submit, timeIsOver)} onClick={submitHandler}><SaveIcon/></button>}
 				{!editable && <button className={cn(styles.submit, timeIsOver)} onClick={editHandler}><EditIcon/></button>}
 				<button className={cn(styles.delete, timeIsOver)} onClick={deleteHandler}><DeleteIcon/></button>
-				<div></div>
-				<div></div>
 				<div className={styles.inputError}>{inputError && <span>Please enter todo title</span>}</div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
 				{expand && ((editable && <textarea className={styles.description} placeholder="Enter todo description..." value={description} onChange={changeDescription}/>) ||	
 							(!editable && <textarea className={styles.description} value={description} readOnly/>))}
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
 				{fileData && expand && fileList(fileData)}
 			</div>	
 			{modal && <Modal>

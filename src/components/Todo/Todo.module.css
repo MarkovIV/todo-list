@@ -1,5 +1,4 @@
 .todo {
-	min-width: 350px;
 	width: 100%;
 	max-width: var(--max-todos-width);
 	margin-left: auto;
@@ -8,12 +7,13 @@
 	margin-bottom: 20px;
 
 	display: grid;
-	grid-template-columns: 30px 30px 30px auto 110px 40px;
+	grid-template-columns: 30px 30px 30px 1fr 110px 40px;
+	grid-template-rows: repeat(4, auto);
 	grid-template-areas:
 		"checkbox expand clip title date submit"
 		"delete . . inputError . ."
-		". . . description . ."
-		". . . fileList . .";
+		". . . description description description"
+		". . . fileList fileList fileList";
 
 	background-color: var(--color-gray-1);
 	border-radius: 3%;
@@ -57,6 +57,8 @@
 	padding: 5px;
 	height: 150px;
 
+	grid-column: 4 / span 3;
+
 	color: var(--color-black);
 	outline: none;
 	background-color: inherit;
@@ -68,6 +70,8 @@
 	display: block;
 	margin-top: 10px;
 	padding: 5px;
+
+	grid-column: 4 / span 3;
 
 	color: var(--color-black);
 	outline: none;
@@ -99,6 +103,9 @@
 .inputError {
 	color: var(--color-red);
 	font-weight: normal;
+
+	grid-column: 4 / span 1;
+	justify-self: start;
 }
 
 .clip {
@@ -153,24 +160,78 @@
 	margin-top: 20px;
 }
 
+.delete {
+	align-self: start;
+}
+
 @media (max-width: 650px) {
 	* {
 		font-size: 10px;
 	}
-
+	
 	.submit {
 		height: 30px;
 	}
 
 	.todo {
-		width: 100%;
+		width: 95%;
 		padding: 10px;
+		grid-template-columns: 27px 20px 90px 1fr 30px;
+		grid-template-rows: repeat(5, auto);
+	}
 
-		grid-template-columns: 27px 20px 20px auto 90px 30px;
+	.checkbox {
+		grid-column: 1 / span 1;
+		grid-row: 1 / span 1;
+	}
+
+	.expand {
+		grid-column: 2 / span 1;
+		grid-row: 1 / span 1;
+	}
+
+	.date {
+		grid-column: 3 / span 1;
+		grid-row: 1 / span 1;
+	}
+
+	.submit {
+		grid-column: 5 / span 1;
+		grid-row: 1 / span 1;
+	}
+
+	.delete {
+		grid-column: 1 / span 1;
+		grid-row: 2 / span 1;
+	}
+
+	.clip {
+		grid-column: 2 / span 1;
+		grid-row: 2 / span 1;
+	}
+
+	.title {
+		grid-column: 3 / span 3;
+		grid-row: 2 / span 1;
+	}
+
+	.inputError {
+		grid-column: 3 / span 3;
+		grid-row: 3 / span 1;
+	}
+
+	.description {
+		grid-column: 3 / span 3;
+		grid-row: 4 / span 1;
+	}
+
+	.fileList {
+		grid-column: 3 / span 3;
+		grid-row: 5 / span 1;
 	}
 
 	.closeWindow {
-		width: 200px;	
+		width: 200px;
 		padding: 20px;
 		grid-template-columns: 80px 80px;
 	}

@@ -1,12 +1,12 @@
 .todos {
 	width: 80%;
 	max-width: var(--max-todos-width);
-	min-width: 490px;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 20px;
 	display: grid;
 	grid-template-columns: auto;
+	grid-template-rows: repeat(2, auto);
 	grid-template-areas:
 		"todosList"
 		"statline";
@@ -35,7 +35,9 @@
 	}
 
 	.todos {
-		width: 90%;
-		padding: 10px;
+		width: 100%;
+		padding: 0;
+		background-color: transparent;
+		box-shadow: none;
 	}
 }

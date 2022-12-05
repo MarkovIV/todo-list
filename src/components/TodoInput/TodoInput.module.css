@@ -1,5 +1,4 @@
 .todoInput {
-	min-width: 490px;
 	width: 80%;
 	max-width: var(--max-todos-width);
 	margin-left: auto;
@@ -7,12 +6,13 @@
 	padding: 20px;
 
 	display: grid;
-	grid-template-columns: 30px 30px auto 110px 40px;
+	grid-template-columns: 30px 30px 30px 1fr 110px 40px;
+	grid-template-rows: repeat(4, auto);
 	grid-template-areas:
-		"expand clip title date submit"
-		". . inputError . ."
-		". . description description description"
-		". . fileList fileList fileList";
+		"expand clip title title date submit"
+		". . inputError inputError . ."
+		". . description description description description"
+		". . fileList fileList fileList fileList";
 	
 	background-color: var(--color-gray-1);
 	border-radius: 3%;
@@ -33,6 +33,9 @@
 	background-color: inherit;
 	border-bottom: 1px solid var(--color-gray-2);
 	border-radius: 5px;
+
+	grid-column: 3 / span 2;
+	grid-row: 1 / span 1;
 }
 
 .date {
@@ -49,10 +52,12 @@
 
 .description{
 	resize: none;
-	display: block;
 	margin-top: 10px;
 	padding: 5px;
 	height: 150px;
+
+	grid-column: 3 / span 4;
+	grid-row: 3 / span 1;
 
 	color: var(--color-black);
 	outline: none;
@@ -62,9 +67,11 @@
 }
 
 .fileList {
-	display: block;
 	margin-top: 10px;
 	padding: 5px;
+
+	grid-column: 3 / span 4;
+	grid-row: 4 / span 1;
 
 	color: var(--color-black);
 	outline: none;
@@ -93,6 +100,9 @@
 .inputError {
 	color: var(--color-red);
 	font-weight: normal;
+
+	grid-column: 3 / span 2;
+	grid-row: 2 / span 1;
 }
 
 .clip {
@@ -113,18 +123,58 @@
 }
 
 @media (max-width: 650px) {
-	* {
-		font-size: 10px;
-	}
+		* {
+			font-size: 10px;
+		}
+		
+		.submit {
+			height: 30px;
+		}
 
-	.submit {
-		height: 30px;
-	}
+		.todoInput {
+			width: 95%;
+			padding: 10px;
+			grid-template-columns: 27px 20px 90px 1fr 30px;
+			grid-template-rows: repeat(5, auto);
+		}
 
-	.todoInput {
-		width: 90%;
-		padding: 10px;
-		grid-template-columns: 20px 20px auto 90px 30px;
+		.expand {
+			grid-column: 1 / span 1;
+			grid-row: 1 / span 1;
+		}
 
-	}
+		.clip {
+			grid-column: 2 / span 1;
+			grid-row: 1 / span 1;
+		}
+
+		.date {
+			grid-column: 3 / span 1;
+			grid-row: 1 / span 1;
+		}
+
+		.submit {
+			grid-column: 5 / span 1;
+			grid-row: 1 / span 1;
+		}
+
+		.title {
+			grid-column: 3 / span 3;
+			grid-row: 2 / span 1;
+		}
+
+		.inputError {
+			grid-column: 3 / span 3;
+			grid-row: 3 / span 1;
+		}
+
+		.description {
+			grid-column: 3 / span 3;
+			grid-row: 4 / span 1;
+		}
+		
+		.fileList {
+			grid-column: 3 / span 3;
+			grid-row: 5 / span 1;
+		}
 }

@@ -122,18 +122,8 @@ export const TodoInput = ({ className, ...props }: TodoInputProps): JSX.Element 
 			<input className={styles.title} type="text" placeholder="Enter todo title..." value={title} onChange={changeTitle}/>
 			<input className={styles.date} type="date" value={date} onChange={changeDate}/>
 			<button className={styles.submit} onClick={submitHandler}><Enter/></button>
-			<div></div>
-			<div></div>
 			<div className={styles.inputError}>{inputError && <span>Please enter todo title</span>}</div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
 			{expand && <textarea className={styles.description} placeholder="Enter todo description..." value={description} onChange={changeDescription}/>}
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
 			{files && expand && <div className={styles.fileList}>
 				{files.map((file, index) => 
 					<div key={index}>{file.name}</div>

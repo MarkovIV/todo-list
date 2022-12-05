@@ -95,23 +95,29 @@
 }
 
 @media (max-width: 650px) {
-	.navbar {
-		grid-template-columns: 40px 40px 40px auto 80px 80px 80px auto 40px 40px 40px;
-	}
-}
-
-@media (max-width: 500px) {
 	* {
 		font-size: 11px;
 	}
 
-	.finish svg:hover,
-	.github svg:hover,
-	.start svg:hover {
-		fill: var(--color-white);
+	.finish,
+	.github,
+	.start {
+		display: none;
 	}
 
 	.navbar {
-		grid-template-columns: 30px 30px 30px auto 40px 40px 60px auto 30px 30px 30px;
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.all {
+		grid-column: 1 / span 1;
+	}
+
+	.active {
+		grid-column: 2 / span 1;
+	}
+
+	.completed {
+		grid-column: 3 / span 1;
 	}
 }
